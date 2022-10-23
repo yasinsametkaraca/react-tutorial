@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import { Icon, Menu, Table } from 'semantic-ui-react'
 import ProductService from "../services/productService";
+import {Link} from "react-router-dom";
 
 export default function ProductList(){
 //hook tekniği kullanılıcaktır.
@@ -11,7 +12,7 @@ export default function ProductList(){
     useEffect(()=>{                 //component yüklendiğinde yapılması istenen kodlar yazılır. Sayfa her yüklendiğinde useEffect fonksiyonu çalışır.
         let productService = new ProductService();
         productService.getProducts().then(response => setProducts(response.data.data)) //setProducts parametrede aldığı değeri products a eşitler
-    })
+    },[])  // [] ekledik çünkü apiye sonsuz istek atılır. Update vs. için kullanıcaz.
     return (
         <div>
             <Table celled>
@@ -28,7 +29,7 @@ export default function ProductList(){
                 <Table.Body>
                     {products.map((product) => (
                             <Table.Row key={product.id}>
-                                <Table.Cell>{product.productName}</Table.Cell>
+                                <Table.Cell><Link to={`/products/${product.id}`}>{product.productName}</Link></Table.Cell>  {/*productName i link haline getirdik. tıklayınca productdetails e geçicez.*/}
                                 <Table.Cell>{product.unitPrice}</Table.Cell>
                                 <Table.Cell>{product.unitsInStock}</Table.Cell>
                                 <Table.Cell>{product.quantityPerUnit}</Table.Cell>
