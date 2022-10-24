@@ -4,6 +4,7 @@ import {Button, Container, Dropdown, Menu} from 'semantic-ui-react'
 import SignedOut from "./SignedOut";
 import SignedIn from "./SignedIn";
 import {useNavigate} from "react-router-dom"
+import {useSelector} from "react-redux";
 
 export default function Navi() {
     const [isAuthenticated, setIsAuthenticated] = useState(true);  //başlangıcını false yaptık.
@@ -16,6 +17,8 @@ export default function Navi() {
     function handleSignIn() {
         setIsAuthenticated(true);
     }
+
+    const {cartItems} = useSelector(state => state.cart)
 
     return (
         <div>
@@ -31,7 +34,7 @@ export default function Navi() {
                         name='messages'
                     />
                     <Menu.Menu position='right'>
-                        <CartSummary></CartSummary>
+                        {cartItems.length>0 && <CartSummary></CartSummary>}                                                  {/* cartSummary i eleman  sayısı sıfırdan büyük olursa import et .*/}
                         {isAuthenticated ? <SignedIn signOut={handleSignOut}></SignedIn> : <SignedOut signIn={handleSignIn}></SignedOut> }  {/*signOut={handleSignOut} fonksiyonunu SignIn e yolladık. SingIn içerisinde kullanırken signOut yazarak kullanıcaz. (Props yapmış olduk)*/}
                     </Menu.Menu>
                 </Container>
