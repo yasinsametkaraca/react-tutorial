@@ -1,7 +1,8 @@
 import './App.css';
 import Header from './components/Header'
+import User from "./components/User";
 
-const userName = "YSK"
+const username = "YSK"
 const title = "YSK App"
 const isLogin = true
 
@@ -18,9 +19,7 @@ function App() {
                 <input type="text" id="input"/>
             </label>
             <h1>{title}</h1>
-
-            <h1>{isLogin ? `Kullanıcı Adı : ${userName}` : "you are not logged in"}</h1>  {/*isLogin true ise gösterilir*/}
-            {/*<h1>{!isLogin && "you are not logged in"}</h1>*/}
+            <User adress={{title:"Kayseri",zip:38020}}  username={username} age={"12"} name={"yasin"} isLogin={isLogin} friends={["ahmet","mehmet","samet"]}></User>
         </div>
         /* </>  */
     );
